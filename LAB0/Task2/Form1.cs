@@ -12,6 +12,14 @@ namespace LAB0_task2_
         {
             InitializeComponent();
             DrawTable();
+            foreach (DataGridViewColumn column in TableData.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+            Surname.MaxLength = 55;
+            FirstName.MaxLength = 55;
+            Group.MaxLength = 20;
+            Mark.MaxLength = 1;
         }
         void DrawTable()
         {
@@ -85,14 +93,30 @@ namespace LAB0_task2_
             string StName = FirstName.Text;
             string StGroup = Group.Text;
             string StMark = Mark.Text;
-            Surname.MaxLength = 55;
-            FirstName.MaxLength = 55;
-            Group.MaxLength = 20;
-            Mark.MaxLength = 1;
 
             if (Surname.Text == "" || FirstName.Text == "" || Group.Text == "" || Mark.Text == "")
             {
                 MessageBox.Show("Поля не могут быть пустыми.");
+                return;
+            }
+
+            if (Int32.TryParse(Mark.Text, out int CalMark))
+            {
+                Convert.ToInt32(Mark.Text);
+                int CalculMark = CalMark;
+
+                if (CalculMark >= 2 && CalculMark <= 5)
+                {
+                }
+                else
+                {
+                    MessageBox.Show("Неправильный формат ввода оценки. Укажите оценку 2, 3, 4 или 5.\n\n(2 - неудовлетворительно, 3 - удовлетворительно, 4 - хорошо, 5 - отлично)");
+                    return;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Неправильный формат ввода оценки. Укажите оценку 2, 3, 4 или 5.\n\n(2 - неудовлетворительно, 3 - удовлетворительно, 4 - хорошо, 5 - отлично)");
                 return;
             }
 
@@ -130,34 +154,17 @@ namespace LAB0_task2_
             }
             e.Handled = true;
         }
-        private void Mark_TextChanged(object sender, EventArgs e)
-        {
-            if (Int32.TryParse(Mark.Text, out int CalMark))
-            {
-                Convert.ToInt32(Mark.Text);
-                int CalculMark = CalMark;
-                
-                if (CalculMark >= 2 && CalculMark <= 5)
-                {
-                }
-                else
-                {
-                    MessageBox.Show("Неправильный формат ввода оценки. Укажите оценку 2, 3, 4 или 5.\n\n(2 - неудовлетворительно, 3 - удовлетворительно, 4 - хорошо, 5 - отлично)");
-                    return;
-                }
-            }
-            else
-            {
-                MessageBox.Show("Неправильный формат ввода оценки. Укажите оценку 2, 3, 4 или 5.\n\n(2 - неудовлетворительно, 3 - удовлетворительно, 4 - хорошо, 5 - отлично)");
-                return;
-            }
-        }
         private void ResetFilter_Click(object sender, EventArgs e)
         {
             DeleteTable();
             DrawTable();
             FilterGroup.Clear();
             FilterMark.Clear();
+        }
+        private void Group_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (int)Keys.Space)
+                e.KeyChar = '\0';
         }
     }
 }
