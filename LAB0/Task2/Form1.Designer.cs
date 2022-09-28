@@ -112,6 +112,7 @@ namespace LAB0_task2_
             this.Group.Name = "Group";
             this.Group.Size = new System.Drawing.Size(105, 22);
             this.Group.TabIndex = 6;
+            this.Group.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Group_KeyPress);
             // 
             // Mark
             // 
@@ -119,7 +120,6 @@ namespace LAB0_task2_
             this.Mark.Name = "Mark";
             this.Mark.Size = new System.Drawing.Size(105, 22);
             this.Mark.TabIndex = 7;
-            this.Mark.TextChanged += new System.EventHandler(this.Mark_TextChanged);
             // 
             // label4
             // 
@@ -259,6 +259,7 @@ namespace LAB0_task2_
             this.TableData.Name = "TableData";
             this.TableData.ReadOnly = true;
             this.TableData.RowHeadersWidth = 51;
+            this.TableData.ShowEditingIcon = false;
             this.TableData.Size = new System.Drawing.Size(732, 365);
             this.TableData.TabIndex = 20;
             // 
