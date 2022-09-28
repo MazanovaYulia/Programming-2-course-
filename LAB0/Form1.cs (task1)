@@ -12,41 +12,37 @@ namespace LAB0
 
         private void Calculation_Click(object sender, EventArgs e)
         {
-            double Edge;
-            double Radius;
-            double LatestReading;
-            
-            if (Double.TryParse(textBoxA.Text, out Edge))
+            if (Double.TryParse(TextBoxA.Text, out double Edge))
             {
-                LatestReading = Convert.ToDouble(textBoxA.Text);
+                Convert.ToDouble(TextBoxA.Text);
             }
             else
             {
                 MessageBox.Show("Неправильный формат ввода а - значения ребра!");
                 return;
             }
-           
-            if (Double.TryParse(textBoxR.Text, out Radius))
+
+            if (Double.TryParse(TextBoxR.Text, out double Radius))
             {
-                LatestReading = Convert.ToDouble(textBoxR.Text);
+                Convert.ToDouble(TextBoxR.Text);
             }
             else
             {
                 MessageBox.Show("Неправильный формат ввода R - значения радиуса!");
                 return;
             }
-           
+
             if (Edge < 0 || Radius < 0)
             {
                 MessageBox.Show("Значения переменных не могут быть меньше нуля.");
-                return;      
+                return;
             }
             if (Radius > Edge / 2)
             {
                 MessageBox.Show("Радиус не может быть больше значения ребра куба, деленного на 2.");
                 return;
             }
-            else if (Radius > 10000 || Edge > 10000 )
+            else if (Radius > 10000 || Edge > 10000)
             {
                 MessageBox.Show("Ошибка! Недопустимое значение.");
                 return;
@@ -58,6 +54,17 @@ namespace LAB0
                 double PercentWaste = (CubeVolume - BallVolume) / CubeVolume * 100;
                 Result.Text = ("Ребро: ") + Convert.ToString(Math.Round(Edge, 2)) + (" см ") + ("\nРадиус: ") + Convert.ToString(Math.Round(Radius, 2)) + (" см ") + ("\nОбъем куба: ") + Convert.ToString(Math.Round(CubeVolume, 2)) + (" см3 ") + ("\nОбъем шара: ") + Convert.ToString(Math.Round(BallVolume, 2)) + (" см3 ") + ("\nПроцент отходов: ") + Convert.ToString(Math.Round(PercentWaste, 2)) + (" % ");
             }
+
+        }
+        private void TextBoxA_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (int)Keys.Space)
+                e.KeyChar = '\0';
+        }
+        private void TextBoxR_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (int)Keys.Space)
+                e.KeyChar = '\0';
         }
     }
 }
