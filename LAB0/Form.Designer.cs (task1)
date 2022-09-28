@@ -28,8 +28,8 @@ namespace LAB0
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBoxA = new System.Windows.Forms.TextBox();
-            this.textBoxR = new System.Windows.Forms.TextBox();
+            this.TextBoxA = new System.Windows.Forms.TextBox();
+            this.TextBoxR = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -43,19 +43,21 @@ namespace LAB0
             this.label10 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // textBoxA
+            // TextBoxA
             // 
-            this.textBoxA.Location = new System.Drawing.Point(403, 208);
-            this.textBoxA.Name = "textBoxA";
-            this.textBoxA.Size = new System.Drawing.Size(106, 22);
-            this.textBoxA.TabIndex = 0;
+            this.TextBoxA.Location = new System.Drawing.Point(403, 208);
+            this.TextBoxA.Name = "TextBoxA";
+            this.TextBoxA.Size = new System.Drawing.Size(106, 22);
+            this.TextBoxA.TabIndex = 0;
+            this.TextBoxA.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxA_KeyPress);
             // 
-            // textBoxR
+            // TextBoxR
             // 
-            this.textBoxR.Location = new System.Drawing.Point(652, 208);
-            this.textBoxR.Name = "textBoxR";
-            this.textBoxR.Size = new System.Drawing.Size(106, 22);
-            this.textBoxR.TabIndex = 1;
+            this.TextBoxR.Location = new System.Drawing.Point(652, 208);
+            this.TextBoxR.Name = "TextBoxR";
+            this.TextBoxR.Size = new System.Drawing.Size(106, 22);
+            this.TextBoxR.TabIndex = 1;
+            this.TextBoxR.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxR_KeyPress);
             // 
             // label1
             // 
@@ -188,8 +190,8 @@ namespace LAB0
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBoxR);
-            this.Controls.Add(this.textBoxA);
+            this.Controls.Add(this.TextBoxR);
+            this.Controls.Add(this.TextBoxA);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "Form1";
@@ -201,8 +203,8 @@ namespace LAB0
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBoxA;
-        private System.Windows.Forms.TextBox textBoxR;
+        private System.Windows.Forms.TextBox TextBoxA;
+        private System.Windows.Forms.TextBox TextBoxR;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
