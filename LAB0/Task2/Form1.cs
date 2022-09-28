@@ -140,7 +140,7 @@ namespace LAB0_task2_
         }
         private void Surname_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (char.IsControl(e.KeyChar) || char.IsLetter(e.KeyChar))
+            if (char.IsControl(e.KeyChar) || char.IsLetter(e.KeyChar) || e.KeyChar == '-' || e.KeyChar == '`')
             {
                 return;
             }
