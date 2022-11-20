@@ -48,6 +48,7 @@ namespace LAB0_task2_
         void SearchTable(string StMark, string StGroup)
         {
             TableData.ColumnCount = 4;
+            bool RowIsFind = false;
 
             using (TextFieldParser parser = new TextFieldParser("data.csv", Encoding.UTF8))
             {
@@ -57,7 +58,6 @@ namespace LAB0_task2_
 
                 while (!parser.EndOfData)
                 {
-                    TableData.Rows.Add();
                     int ColumnIndex = 0;
                     string[] fields = parser.ReadFields();
 
@@ -74,13 +74,41 @@ namespace LAB0_task2_
                         continue;
                     }
 
+                    TableData.Rows.Add();
+                    RowIsFind = true;
                     foreach (string field in fields)
                     {
                         TableData.Rows[RowIndex].Cells[ColumnIndex].Value = field;
                         ColumnIndex += 1;
                     }
                     RowIndex += 1;
+                    for (int k = 0; k < TableData.Rows.Count; k++)
+                    {
+                        if (TableData.Rows[k].Cells[1].Value == null)
+                        {
+                            TableData.Rows.RemoveAt(k);
+                        }
+                    }
+              
+                    for (int i = 1; i < TableData.RowCount - 1; i++)
+
+                    {
+                        if (TableData.Rows[i].Cells[0].Value.ToString() == "" || TableData.Rows[i].Cells[1].Value.ToString() == "")
+
+                        {
+
+                            TableData.Rows.RemoveAt(i);
+                            i--;
+                        }
+
+                    }
                 }
+                
+            }
+
+            if (!RowIsFind)
+            {
+                MessageBox.Show("Совпадений не найдено!");
             }
         }
         void DeleteTable()
@@ -97,26 +125,6 @@ namespace LAB0_task2_
             if (Surname.Text == "" || FirstName.Text == "" || Group.Text == "" || Mark.Text == "")
             {
                 MessageBox.Show("Поля не могут быть пустыми.");
-                return;
-            }
-
-            if (Int32.TryParse(Mark.Text, out int CalMark))
-            {
-                Convert.ToInt32(Mark.Text);
-                int CalculMark = CalMark;
-
-                if (CalculMark >= 2 && CalculMark <= 5)
-                {
-                }
-                else
-                {
-                    MessageBox.Show("Неправильный формат ввода оценки. Укажите оценку 2, 3, 4 или 5.\n\n(2 - неудовлетворительно, 3 - удовлетворительно, 4 - хорошо, 5 - отлично)");
-                    return;
-                }
-            }
-            else
-            {
-                MessageBox.Show("Неправильный формат ввода оценки. Укажите оценку 2, 3, 4 или 5.\n\n(2 - неудовлетворительно, 3 - удовлетворительно, 4 - хорошо, 5 - отлично)");
                 return;
             }
 
@@ -138,21 +146,21 @@ namespace LAB0_task2_
             DeleteTable();
             SearchTable(StMark, StGroup);
         }
+        
+            
         private void Surname_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (char.IsControl(e.KeyChar) || char.IsLetter(e.KeyChar) || e.KeyChar == '-' || e.KeyChar == '`')
+            if ((e.KeyChar <= 64 || e.KeyChar >= 91) && (e.KeyChar <= 96 || e.KeyChar >= 123) && e.KeyChar != 45 && e.KeyChar != 8 && e.KeyChar != 39 && (e.KeyChar <= 'А' || e.KeyChar >= 'я') && e.KeyChar != 'ё' && e.KeyChar != 'Ё' && e.KeyChar != 'А' && e.KeyChar != 'я')
             {
-                return;
+                e.Handled = true;
             }
-            e.Handled = true;
         }
         private void FirstName_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (char.IsControl(e.KeyChar) || char.IsLetter(e.KeyChar))
+            if ((e.KeyChar <= 64 || e.KeyChar >= 91) && (e.KeyChar <= 96 || e.KeyChar >= 123) && e.KeyChar != 45 && e.KeyChar != 8 && e.KeyChar != 39 && (e.KeyChar <= 'А' || e.KeyChar >= 'я') && e.KeyChar != 'ё' && e.KeyChar != 'Ё' && e.KeyChar != 'А' && e.KeyChar != 'я')
             {
-                return;
+                e.Handled = true;
             }
-            e.Handled = true;
         }
         private void ResetFilter_Click(object sender, EventArgs e)
         {
@@ -163,8 +171,18 @@ namespace LAB0_task2_
         }
         private void Group_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (int)Keys.Space)
-                e.KeyChar = '\0';
+            if ((e.KeyChar <= 47 || e.KeyChar >= 58) && (e.KeyChar <= 64 || e.KeyChar >= 91) && (e.KeyChar <= 96 || e.KeyChar >= 123) && e.KeyChar != 45 && e.KeyChar != 8 && (e.KeyChar <= 'А' || e.KeyChar >= 'я') && e.KeyChar != 'ё' && e.KeyChar != 'Ё')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void Mark_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((e.KeyChar <= 49 || e.KeyChar >= 54) && e.KeyChar != 8)
+            {
+                e.Handled = true;
+            }
         }
     }
 }
