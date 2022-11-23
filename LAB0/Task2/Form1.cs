@@ -1,6 +1,8 @@
 using Microsoft.VisualBasic.FileIO;
 using System;
+using System.Data;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -20,6 +22,30 @@ namespace LAB0_task2_
             FirstName.MaxLength = 55;
             Group.MaxLength = 20;
             Mark.MaxLength = 1;
+        }
+
+        bool SearchRow(string Surname, string Name, string Group, string Mark)
+        {
+            using (TextFieldParser parser = new TextFieldParser("data.csv", Encoding.UTF8))
+            {
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(";");
+                int RowIndex = 0;
+
+                while (!parser.EndOfData)
+                {
+                    int ColumnIndex = 0;
+                    string[] fields = parser.ReadFields();
+                    
+                    if (fields[0] == Surname && fields[1] == Name && fields[2] == Group && fields[3] == Mark)
+                    {
+                        return true;
+                    }
+
+                }
+            }
+
+            return false;
         }
         void DrawTable()
         {
@@ -115,6 +141,7 @@ namespace LAB0_task2_
         {
             TableData.Rows.Clear();
         }
+
         private void AddStudent_Click(object sender, EventArgs e)
         {
             string StSurname = Surname.Text;
@@ -128,11 +155,18 @@ namespace LAB0_task2_
                 return;
             }
 
+            if (SearchRow(StSurname, StName, StGroup, StMark))
+            {
+                MessageBox.Show("Поля не могут повторяться.");
+                return;
+            }
+
             using (var w = new StreamWriter("data.csv", true))
             {
                 string line = string.Format("{0};{1};{2};{3}", StSurname, StName, StGroup, StMark);
                 w.WriteLine(line);
             }
+
             DeleteTable();
             DrawTable();
         }
