@@ -11,76 +11,12 @@ namespace Dihtomia
         {
             InitializeComponent();
         }
-        private void ButtonSearch_Click(object sender, EventArgs e)
+        static double TruncateDecimal(double Value, int Precision)
         {
-            Chart.Series[0].Points.Clear();
-            Chart.Series[1].Points.Clear();
-
-            string Function = FunctionBox.Text.Replace("x", "(x)");
-            bool StartStatus = CheckDouble(StartABox.Text, "a");
-            bool EndStatus = CheckDouble(EndBBox.Text, "b");
-            bool AccuracyStatus = CheckInt(AccuracyBox.Text, "e");
-            bool FormulaStatus = true;
-
-            MathParser Parser = new MathParser();
-            try
-            {
-                List<double> TestPoint = GetPoint(Parser, Function, 1);
-            }
-            catch
-            {
-                MessageBox.Show($"Ошибка в формуле");
-                FormulaStatus = false;
-            }
-
-
-            if (StartStatus && EndStatus && AccuracyStatus && FormulaStatus)
-            {
-                double Start = Double.Parse(StartABox.Text);
-                double End = Double.Parse(EndBBox.Text);
-                int Accuracy = Int32.Parse(AccuracyBox.Text);
-                double AmountPoints = 10000;
-
-                if (End > Start)
-                {
-                    try
-                    {
-                        List<List<double>> Points = GetPoints(Parser, Function, Start, End, AmountPoints);
-
-                        List<double> MinumumPoint = GetMinimumPoint(Parser, Function, Start, End, Accuracy);
-                        double Step = (End - Start) / AmountPoints;
-                        List<List<double>> AllMinimumPoints = GetMinimumPoints(Points, MinumumPoint, Step);
-
-                        DrawChart(Points, AllMinimumPoints);
-
-                        if (MinumumPoint[1] is double.NaN)
-                        {
-                            ResultLabel.Text = $"Локальный минимум не найден";
-                        }
-                        else
-                        {
-                            ResultLabel.Text = $"Локальный минимум: ( {MinumumPoint[0]}, {TruncateDecimal(MinumumPoint[1], Accuracy)} )";
-                        }
-                    }
-                    catch
-                    {
-                        MessageBox.Show($"Слишком сложная формула");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show($"Конец интервала не может быть меньше начала интервала");
-                }
-            }
+            double Step = (double)Math.Pow(10, Precision);
+            double Temp = Math.Truncate(Step * Value);
+            return Temp / Step;
         }
-
-        static double TruncateDecimal(double value, int precision)
-        {
-            double step = (double)Math.Pow(10, precision);
-            double tmp = Math.Truncate(step * value);
-            return tmp / step;
-        }
-
         void DrawChart(List<List<double>> Points, List<List<double>> MinimumPoints)
         {
             foreach (List<double> Point in Points)
@@ -208,7 +144,67 @@ namespace Dihtomia
 
             return Points;
         }
+        private void ButtonSearch_Click(object sender, EventArgs e)
+        {
+            Chart.Series[0].Points.Clear();
+            Chart.Series[1].Points.Clear();
 
+            string Function = FunctionBox.Text.Replace("x", "(x)");
+            bool StartInterval = CheckDouble(StartABox.Text, "a");
+            bool EndInterval = CheckDouble(EndBBox.Text, "b");
+            bool AccuracyOn = CheckInt(AccuracyBox.Text, "e");
+            bool FormulaOn = true;
+
+            MathParser Parser = new MathParser();
+            try
+            {
+                List<double> TestPoint = GetPoint(Parser, Function, 1);
+            }
+            catch
+            {
+                MessageBox.Show($"Ошибка в формуле");
+                FormulaOn = false;
+            }
+
+            if (StartInterval && EndInterval && AccuracyOn && FormulaOn)
+            {
+                double Start = Double.Parse(StartABox.Text);
+                double End = Double.Parse(EndBBox.Text);
+                int Accuracy = Int32.Parse(AccuracyBox.Text);
+                double AmountPoints = 10000;
+
+                if (End > Start)
+                {
+                    try
+                    {
+                        List<List<double>> Points = GetPoints(Parser, Function, Start, End, AmountPoints);
+
+                        List<double> MinumumPoint = GetMinimumPoint(Parser, Function, Start, End, Accuracy);
+                        double Step = (End - Start) / AmountPoints;
+                        List<List<double>> AllMinimumPoints = GetMinimumPoints(Points, MinumumPoint, Step);
+
+                        DrawChart(Points, AllMinimumPoints);
+
+                        if (MinumumPoint[1] is double.NaN)
+                        {
+                            ResultLabel.Text = $"Минимум не найден";
+                        }
+                        else
+                        {
+                            ResultLabel.Text = $"Минимум:\n ( {MinumumPoint[0]}, {TruncateDecimal(MinumumPoint[1], Accuracy)} )";
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show($"Слишком сложная формула");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"Конец интервала не может быть меньше начала интервала");
+                }
+            }
+        }
         bool CheckDouble(string DoubleLine, string DoubleName)
         {
             if (Double.TryParse(DoubleLine, out double DoubleNumber))
@@ -226,13 +222,13 @@ namespace Dihtomia
         {
             if (Int32.TryParse(IntLine, out int IntNumber))
             {
-                if (IntNumber >= 1 && IntNumber <= 7)
+                if (IntNumber >= 1 && IntNumber <= 10)
                 {
                     return true;
                 }
                 else
                 {
-                    MessageBox.Show("Точность должна быть от 1 до 7 знаков после запятой.");
+                    MessageBox.Show("Точность должна быть от 1 до 10 знаков после запятой.");
                     return false;
                 }
             }
@@ -241,11 +237,6 @@ namespace Dihtomia
                 MessageBox.Show($"Неподходящий формат: {IntName}");
                 return false;
             }
-        }
-
-        private void Chart_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
