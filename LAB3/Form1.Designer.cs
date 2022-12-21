@@ -1,192 +1,202 @@
-namespace leastsquares
+namespace LeastSquareMethod
 {
-    partial class Form1
-    {
-        /// <summary>
-        ///  Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+	partial class Form1
+	{
+		/// <summary>
+		/// Обязательная переменная конструктора.
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        ///  Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+		/// <summary>
+		/// Освободить все используемые ресурсы.
+		/// </summary>
+		/// <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && (components != null))
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
 
-        #region Windows Form Designer generated code
+		#region Код, автоматически созданный конструктором форм Windows
 
-        /// <summary>
-        ///  Required method for Designer support - do not modify
-        ///  the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
-            this.components = new System.ComponentModel.Container();
+		/// <summary>
+		/// Требуемый метод для поддержки конструктора — не изменяйте 
+		/// содержимое этого метода с помощью редактора кода.
+		/// </summary>
+		private void InitializeComponent()
+		{
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.GridTable = new System.Windows.Forms.DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.googleSheetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.excelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.randomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.countToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.graph = new ZedGraph.ZedGraphControl();
-            this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.columnX = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnY = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ButtonSearch = new System.Windows.Forms.ToolStripMenuItem();
+            this.ButtonClear = new System.Windows.Forms.ToolStripMenuItem();
+            this.Function = new System.Windows.Forms.Label();
+            this.plotView1 = new OxyPlot.WindowsForms.PlotView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.GridTable)).BeginInit();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
+            // 
+            // GridTable
+            // 
+            this.GridTable.BackgroundColor = System.Drawing.Color.MistyRose;
+            this.GridTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.GridTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2});
+            this.GridTable.Location = new System.Drawing.Point(538, 127);
+            this.GridTable.Name = "GridTable";
+            this.GridTable.RowHeadersWidth = 51;
+            this.GridTable.RowTemplate.Height = 24;
+            this.GridTable.Size = new System.Drawing.Size(250, 254);
+            this.GridTable.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(535, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(183, 32);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Программирование\r\nЛабораторная работа 3";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(535, 63);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(234, 48);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Используя метод наименьших \r\nквадратов на множестве точек, \r\nнайти коэффициенты ф" +
+    "ункции f(x).";
             // 
             // menuStrip1
             // 
+            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.importToolStripMenuItem,
-            this.countToolStripMenuItem,
-            this.clearToolStripMenuItem,
-            this.exitToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStripMenuItem1,
+            this.ButtonSearch,
+            this.ButtonClear});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 422);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1133, 28);
-            this.menuStrip1.TabIndex = 0;
+            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.menuStrip1.Size = new System.Drawing.Size(800, 28);
+            this.menuStrip1.TabIndex = 24;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // importToolStripMenuItem
+            // toolStripMenuItem1
             // 
-            this.importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.googleSheetsToolStripMenuItem,
-            this.excelToolStripMenuItem,
-            this.randomToolStripMenuItem});
-            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(78, 24);
-            this.importToolStripMenuItem.Text = "Импорт";
+            this.toolStripMenuItem1.BackColor = System.Drawing.Color.Maroon;
+            this.toolStripMenuItem1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.toolStripMenuItem1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripMenuItem1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.toolStripMenuItem1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.ShowShortcutKeys = false;
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(123, 24);
+            this.toolStripMenuItem1.Text = "Квадратичная";
+            this.toolStripMenuItem1.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.QuadraticCalculate);
             // 
-            // googleSheetsToolStripMenuItem
+            // ButtonSearch
             // 
-            this.googleSheetsToolStripMenuItem.Name = "googleSheetsToolStripMenuItem";
-            this.googleSheetsToolStripMenuItem.Size = new System.Drawing.Size(188, 26);
-            this.googleSheetsToolStripMenuItem.Text = "Google Sheets";
-            this.googleSheetsToolStripMenuItem.Click += new System.EventHandler(this.googleSheetsToolStripMenuItem_Click);
+            this.ButtonSearch.BackColor = System.Drawing.Color.Maroon;
+            this.ButtonSearch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ButtonSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.ButtonSearch.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ButtonSearch.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ButtonSearch.Name = "ButtonSearch";
+            this.ButtonSearch.ShowShortcutKeys = false;
+            this.ButtonSearch.Size = new System.Drawing.Size(93, 24);
+            this.ButtonSearch.Text = "Линейная";
+            this.ButtonSearch.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
+            this.ButtonSearch.Click += new System.EventHandler(this.CalculateButton);
             // 
-            // excelToolStripMenuItem
+            // ButtonClear
             // 
-            this.excelToolStripMenuItem.Name = "excelToolStripMenuItem";
-            this.excelToolStripMenuItem.Size = new System.Drawing.Size(188, 26);
-            this.excelToolStripMenuItem.Text = "Excel";
-            this.excelToolStripMenuItem.Click += new System.EventHandler(this.excelToolStripMenuItem_Click);
+            this.ButtonClear.Name = "ButtonClear";
+            this.ButtonClear.Size = new System.Drawing.Size(87, 24);
+            this.ButtonClear.Text = "Очистить";
+            this.ButtonClear.Click += new System.EventHandler(this.ButtonClear_Click);
             // 
-            // randomToolStripMenuItem
+            // Function
             // 
-            this.randomToolStripMenuItem.Name = "randomToolStripMenuItem";
-            this.randomToolStripMenuItem.Size = new System.Drawing.Size(188, 26);
-            this.randomToolStripMenuItem.Text = "Рандом";
-            this.randomToolStripMenuItem.Click += new System.EventHandler(this.randomToolStripMenuItem_Click);
+            this.Function.AutoSize = true;
+            this.Function.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Function.Location = new System.Drawing.Point(535, 395);
+            this.Function.Name = "Function";
+            this.Function.Size = new System.Drawing.Size(0, 18);
+            this.Function.TabIndex = 25;
             // 
-            // countToolStripMenuItem
+            // plotView1
             // 
-            this.countToolStripMenuItem.Name = "countToolStripMenuItem";
-            this.countToolStripMenuItem.Size = new System.Drawing.Size(98, 24);
-            this.countToolStripMenuItem.Text = "Рассчитать";
-            this.countToolStripMenuItem.Click += new System.EventHandler(this.countToolStripMenuItem_Click);
+            this.plotView1.Location = new System.Drawing.Point(12, 22);
+            this.plotView1.Name = "plotView1";
+            this.plotView1.PanCursor = System.Windows.Forms.Cursors.Hand;
+            this.plotView1.Size = new System.Drawing.Size(486, 391);
+            this.plotView1.TabIndex = 26;
+            this.plotView1.Text = "plotView1";
+            this.plotView1.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
+            this.plotView1.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
+            this.plotView1.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
             // 
-            // clearToolStripMenuItem
+            // Column1
             // 
-            this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(87, 24);
-            this.clearToolStripMenuItem.Text = "Очистить";
-            this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
+            this.Column1.HeaderText = "x";
+            this.Column1.MinimumWidth = 6;
+            this.Column1.Name = "Column1";
             // 
-            // exitToolStripMenuItem
+            // Column2
             // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(67, 24);
-            this.exitToolStripMenuItem.Text = "Выход";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // graph
-            // 
-            this.graph.Location = new System.Drawing.Point(266, 41);
-            this.graph.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.graph.Name = "graph";
-            this.graph.ScrollGrace = 0D;
-            this.graph.ScrollMaxX = 0D;
-            this.graph.ScrollMaxY = 0D;
-            this.graph.ScrollMaxY2 = 0D;
-            this.graph.ScrollMinX = 0D;
-            this.graph.ScrollMinY = 0D;
-            this.graph.ScrollMinY2 = 0D;
-            this.graph.Size = new System.Drawing.Size(850, 567);
-            this.graph.TabIndex = 11;
-            this.graph.UseExtendedPrintDialog = true;
-            // 
-            // dataGridView
-            // 
-            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.columnX,
-            this.columnY});
-            this.dataGridView.Location = new System.Drawing.Point(12, 41);
-            this.dataGridView.Name = "dataGridView";
-            this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.RowTemplate.Height = 29;
-            this.dataGridView.Size = new System.Drawing.Size(234, 567);
-            this.dataGridView.TabIndex = 16;
-            // 
-            // columnX
-            // 
-            this.columnX.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.columnX.HeaderText = "x";
-            this.columnX.MinimumWidth = 90;
-            this.columnX.Name = "columnX";
-            this.columnX.Width = 90;
-            // 
-            // columnY
-            // 
-            this.columnY.HeaderText = "y";
-            this.columnY.MinimumWidth = 90;
-            this.columnY.Name = "columnY";
-            this.columnY.Width = 90;
+            this.Column2.HeaderText = "y";
+            this.Column2.MinimumWidth = 6;
+            this.Column2.Name = "Column2";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1133, 619);
-            this.Controls.Add(this.dataGridView);
-            this.Controls.Add(this.graph);
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.plotView1);
+            this.Controls.Add(this.Function);
             this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.GridTable);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "Form1";
-            this.Text = "Метод наименьших квадратов";
+            this.Text = "Межецкая Юлия, ПИ-211";
+            ((System.ComponentModel.ISupportInitialize)(this.GridTable)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
-        }
+		}
 
-        #endregion
+		#endregion
 
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem googleSheetsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem excelToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem randomToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem countToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
-        private ZedGraph.ZedGraphControl graph;
-        private System.Windows.Forms.DataGridView dataGridView;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnX;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnY;
+		private System.ComponentModel.BackgroundWorker backgroundWorker1;
+		private System.Windows.Forms.DataGridView GridTable;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.MenuStrip menuStrip1;
+		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+		private System.Windows.Forms.ToolStripMenuItem ButtonSearch;
+		private System.Windows.Forms.ToolStripMenuItem ButtonClear;
+		private System.Windows.Forms.Label Function;
+        private OxyPlot.WindowsForms.PlotView plotView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
     }
 }
+
