@@ -436,4 +436,3 @@ namespace OlympiadSorting
         private System.Windows.Forms.Label label3;
     }
 }
-
