@@ -20,7 +20,7 @@ namespace OlympiadSorting
         private int[] InsertList = { 48, 97, 5, 94, 33, 66, 74, 6, 21, 91, 28, 31 };
         private int[] ShakerList = { 48, 97, 5, 94, 33, 66, 74, 6, 21, 91, 28, 31 };
         private int[] BogoList = { 48, 97, 5, 94, 33, 66 };
-        private List<Task> _tasks = new List<Task>();
+        private readonly List<Task> Tasks = new List<Task>();
         private CancellationTokenSource cancelTokenSource;
 
 
@@ -38,7 +38,6 @@ namespace OlympiadSorting
                 MessageBox.Show("Поле не может быть пустым");
                 return;
             }
-
             SetRandomArray(int.Parse(CountData.Text));
 
             if (Bubble.Checked)
@@ -47,11 +46,15 @@ namespace OlympiadSorting
                 timer.Start();
 
                 var task = Task.Run(BubbleSort);
-                _tasks.Add(task);
+                Tasks.Add(task);
                 await task;
 
                 timer.Stop();
                 BubbleTimer.Text = timer.ElapsedMilliseconds + " мс";
+            }
+            if (Bubble.Checked == false) 
+            {
+                BubbleTimer.Text = "";
             }
 
             if (Shaker.Checked)
@@ -60,11 +63,15 @@ namespace OlympiadSorting
                 timer.Start();
 
                 var task = Task.Run(ShakerSort);
-                _tasks.Add(task);
+                Tasks.Add(task);
                 await task;
 
                 timer.Stop();
                 ShakerTimer.Text = timer.ElapsedMilliseconds + " мс";
+            }          
+            if (Shaker.Checked == false)
+            {
+                ShakerTimer.Text = "";
             }
 
             if (Rapid.Checked)
@@ -73,11 +80,15 @@ namespace OlympiadSorting
                 timer.Start();
 
                 var task = Task.Run(() => FastSort(RapidList, 0, RapidList.Length - 1));
-                _tasks.Add(task);
+                Tasks.Add(task);
                 await task;
 
                 timer.Stop();
                 RapidTimer.Text = timer.ElapsedMilliseconds + " мс";
+            }
+            if (Rapid.Checked == false)
+            {
+                RapidTimer.Text = "";
             }
 
             if (Insert.Checked)
@@ -86,11 +97,15 @@ namespace OlympiadSorting
                 timer.Start();
 
                 var task = Task.Run(InsertSort);
-                _tasks.Add(task);
+                Tasks.Add(task);
                 await task;
 
                 timer.Stop();
                 InsertTimer.Text = timer.ElapsedMilliseconds + " мс";
+            }
+            if (Insert.Checked == false)
+            {
+                InsertTimer.Text = "";
             }
 
             if (Bogo.Checked)
@@ -99,11 +114,15 @@ namespace OlympiadSorting
                 timer.Start();
 
                 var task = Task.Run(BogoSort);
-                _tasks.Add(task);
+                Tasks.Add(task);
                 await task;
 
                 timer.Stop();
                 BogoTimer.Text = timer.ElapsedMilliseconds + " мс";
+            }
+            if (Bogo.Checked == false)
+            {
+                BogoTimer.Text = "";
             }
         }
 
@@ -247,7 +266,7 @@ namespace OlympiadSorting
                 while (j >= 0 && InsertList[j] > key)
                 {
                     InsertList[j + 1] = InsertList[j];
-                    j = j - 1;
+                    j--;
                 }
 
                 InsertList[j + 1] = key;
@@ -311,6 +330,13 @@ namespace OlympiadSorting
             Shaker.Checked = false;
             Rapid.Checked = false;
             Bogo.Checked = false;
+            ChartBubble.Series.Clear();
+            ChartShaker.Series.Clear();
+            ChartInsert.Series.Clear();
+            ChartRapid.Series.Clear();
+            ChartBogo.Series.Clear();
+            CountData.Text = "";
+            TableData.Rows.Clear();
         }
 
         private void CountData_KeyPress(object sender, KeyPressEventArgs e)
